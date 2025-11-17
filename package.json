@@ -9,7 +9,10 @@
     "test:rest": "node tests/rest_test.js",
     "start:graphql": "node src/graphql/graphql_server.js",
     "test:graphql": "node tests/graphql_test.js",
-      "test:ci": "npm run start:rest & npm run start:graphql & sleep 5 && npm run test:rest && npm run test:graphql"
+    "install:ci": "npm install",
+    "test:ci": "npm run start:rest & npm run start:graphql & sleep 5 && npm run test:rest && npm run test:graphql",
+    "build": "echo Building todo-tasks-service for production",
+    "deploy": "echo Deploying todo-tasks-service to demo environment"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.11.0",
