@@ -5,9 +5,9 @@
   "main": "src/rest/rest_server.js",
   "type": "commonjs",
   "scripts": {
-    "rest": "node src/rest/rest_server.js",
-    "graphql": "node src/graphql/graphql_server.js",
+   "start:rest": "node src/rest/rest_server.js",
     "test:rest": "node tests/rest_test.js",
+    "start:graphql": "node src/graphql/graphql_server.js",
     "test:graphql": "node tests/graphql_test.js"
   },
   "dependencies": {
