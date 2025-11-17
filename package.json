@@ -8,7 +8,8 @@
    "start:rest": "node src/rest/rest_server.js",
     "test:rest": "node tests/rest_test.js",
     "start:graphql": "node src/graphql/graphql_server.js",
-    "test:graphql": "node tests/graphql_test.js"
+    "test:graphql": "node tests/graphql_test.js",
+      "test:ci": "npm run start:rest & npm run start:graphql & sleep 5 && npm run test:rest && npm run test:graphql"
   },
   "dependencies": {
     "@grpc/grpc-js": "^1.11.0",

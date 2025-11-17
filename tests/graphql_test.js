@@ -33,28 +33,47 @@ function runTest() {
     }
   };
 
-  const instance = autocannon(
-    {
-      url,
-      method: 'POST',
-      connections: 50,
-      duration: 30,
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(body)
+  const instance = autocannon({
+    url,
+    method: 'POST',
+    connections: 1000,
+    duration: 30, 
+    headers: {
+      'Content-Type': 'application/json'
     },
-    (err, result) => {
-      if (err) {
-        console.error('Error during GraphQL test:', err);
-        process.exit(1);
-      }
-      autocannon.printResult(result);
-    }
-  );
+    body: JSON.stringify(body)
+  });
 
   instance.on('start', () => {
     console.log('Starting GraphQL load test on /graphql...');
+  });
+
+  instance.on('done', (result) => {
+    console.log('Finished GraphQL load test on /graphql.');
+    console.log('--- GraphQL load test results ---');
+    console.log('Duration (s):', result.duration);
+    console.log('Connections:', result.connections);
+
+    if (result.requests) {
+      console.log('Requests total:', result.requests.total);
+      console.log('Requests per second (avg):', result.requests.average);
+    }
+
+    if (result.latency) {
+      console.log('Latency (avg ms):', result.latency.average);
+      console.log('Latency (min/max ms):', result.latency.min, '/', result.latency.max);
+    }
+
+    if (result.throughput) {
+      console.log('Throughput (avg bytes/sec):', result.throughput.average);
+    }
+
+    process.exit(0);
+  });
+
+  instance.on('error', (err) => {
+    console.error('Autocannon GraphQL error:', err);
+    process.exit(1);
   });
 }
 
